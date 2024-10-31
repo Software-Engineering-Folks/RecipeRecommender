@@ -1,10 +1,9 @@
-'use client'
+'use client';
 
 import {
   Box,
   Flex,
   Avatar,
-  Text,
   Button,
   Menu,
   MenuButton,
@@ -16,16 +15,13 @@ import {
   Stack,
   useColorMode,
   Center,
-  Heading
-} from '@chakra-ui/react'
-
-
-// interface Props {
-//   children: React.ReactNode
-// }
+  Heading,
+  Text,
+} from '@chakra-ui/react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const NavLink = (props) => {
-  const { children } = props
+  const { children } = props;
 
   return (
     <Box
@@ -40,28 +36,35 @@ const NavLink = (props) => {
       href={'#'}>
       {children}
     </Box>
-  )
-}
+  );
+};
 
 export default function Nav(props) {
-  const { colorMode, toggleColorMode } = useColorMode()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const handleBookMarks =()=> {
+  const { colorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { logout, user } = useAuth0();
+
+  const handleBookMarks = () => {
     props.handleBookMarks();
-  }
-  const handleLogout = ()=> {
-    console.log("logged out")
-    props.handleLogout();
-  }
+  };
+
+  const handleLogout = () => {
+    logout({
+      returnTo: window.location.origin,  // Redirects to home after logging out
+    });
+  };
+
   return (
     <>
-      <Box color={"black"} mb={5}  bg={"green.300"} px={4}>
+      <Box color={"black"} mb={5} bg={"green.300"} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box pl={10}><Heading size={"md"}>Saveurs Sélection</Heading></Box>
+          <Box pl={10}>
+            <Heading size={"md"}>Saveurs Sélection</Heading>
+          </Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
-
               <Menu>
                 <MenuButton
                   as={Button}
@@ -71,7 +74,7 @@ export default function Nav(props) {
                   minW={0}>
                   <Avatar
                     size={'sm'}
-                    src={'https://avatars.dicebear.com/api/male/username.svg'}
+                    src={user?.picture || 'https://avatars.dicebear.com/api/male/username.svg'}
                   />
                 </MenuButton>
                 <MenuList alignItems={'center'}>
@@ -79,12 +82,14 @@ export default function Nav(props) {
                   <Center>
                     <Avatar
                       size={'xl'}
-                      src={'https://avatars.dicebear.com/api/male/username.svg'}
+                      src={user?.picture || 'https://avatars.dicebear.com/api/male/username.svg'}
                     />
                   </Center>
                   <br />
                   <Center>
-                    <p>{localStorage.getItem("userName")}</p>
+                    <Text fontSize="md" fontWeight="bold">
+                      {user?.name || "Guest"}
+                    </Text>
                   </Center>
                   <br />
                   <MenuDivider />
@@ -97,5 +102,5 @@ export default function Nav(props) {
         </Flex>
       </Box>
     </>
-  )
+  );
 }
