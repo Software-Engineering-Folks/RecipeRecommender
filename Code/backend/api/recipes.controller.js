@@ -32,6 +32,20 @@ export default class RecipesController {
     }
   }
 
+  static async apiGetBookmarkedRecipes(req, res) {
+    const userName = req.query.userName;
+    if (!userName) return res.status(400).json({ error: "Username required" });
+
+    try {
+        const response = await RecipesDAO.getBookmarkedRecipes(userName);
+        res.json(response);
+    } catch (e) {
+        console.error(`Failed to retrieve bookmarks for ${userName}:`, e);
+        res.status(500).json({ error: "Failed to retrieve bookmarks" });
+    }
+  } 
+
+
   static async apiPostRecipeToProfile(req, res) {
     if (req.body) {
       const { userName, recipe } = req.body;
@@ -47,6 +61,22 @@ export default class RecipesController {
     }
 
   }
+
+  static async apiRemoveRecipeFromProfile(req, res) {
+    if (req.body) {
+      const { userName, recipe } = req.body;
+      try {
+        const response = await RecipesDAO.removeRecipeFromProfile(userName, recipe);
+        res.json(response);
+      } catch (e) {
+        console.log(`error: ${e}`);
+        res.status(500).json({ error: e.message });
+      }
+    } else {
+      res.json({ success: false });
+    }
+  }
+
   
   static async apiGetRecipeByName(req, res) {
     let filters = {};

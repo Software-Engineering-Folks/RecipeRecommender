@@ -18,7 +18,11 @@ router.route("/login").get(RecipesCtrl.apiAuthLogin);
 
 router.route("/getBookmarks").get(RecipesCtrl.apiGetBookmarks);
 
+router.route("/getBookmarkedRecipes").get(RecipesCtrl.apiGetBookmarkedRecipes);
+
 router.route("/addRecipeToProfile").post(RecipesCtrl.apiPostRecipeToProfile);
+
+router.route("/removeRecipeFromProfile").post(RecipesCtrl.apiRemoveRecipeFromProfile);
 
 router.route("/getRecipeByName").get(RecipesCtrl.apiGetRecipeByName);
 
