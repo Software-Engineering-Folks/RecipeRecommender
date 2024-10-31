@@ -8,28 +8,21 @@ import BookMarksRecipeCard from "./BookMarksRecipeCard";
 
 // component to handle all the recipes
 const BookMarksRecipeList = ({ recipes }) => {
-  // mapping each recipe item to the Recipe container
-  // const renderedRecipes = recipes.map((recipe) => {
-  //   // return <Recipe key={recipe._id} recipe={recipe} />;
-  //   return(
-
-  //   )
-  // });
-  console.log(recipes)
   const [isOpen, setIsOpen] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState({});
-  var youtube_videos =
-    "https://www.youtube.com/results?search_query=" +
-    currentRecipe["TranslatedRecipeName"];
+
+  var youtube_videos = "https://www.youtube.com/results?search_query=" + currentRecipe["TranslatedRecipeName"];
+  
   const handleViewRecipe = (data) => {
     setIsOpen(true)
     console.log(data)
     setCurrentRecipe(data);
   }
+
   const onClose = () => {
     setIsOpen(false)
   }
-  // all the recipes are being returned in the form of a table
+
   return (
     <>
       <Box borderRadius={"lg"} border="1px" boxShadow={"10px"} borderColor={"gray.100"} fontFamily="regular" m={10} width={"94%"} p={5}>
@@ -39,6 +32,7 @@ const BookMarksRecipeList = ({ recipes }) => {
           )) : <Text data-testid="noResponseText" fontSize={"lg"} color={"gray"}>Searching for a recipe?</Text>}
         </SimpleGrid>
       </Box>
+
       <Modal size={"6xl"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent data-testid="recipeModal" >
@@ -67,4 +61,5 @@ const BookMarksRecipeList = ({ recipes }) => {
     </>
   )
 };
+
 export default BookMarksRecipeList;

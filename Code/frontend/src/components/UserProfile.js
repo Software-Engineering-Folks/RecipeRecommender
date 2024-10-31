@@ -8,6 +8,8 @@ import { Heading, Flex, Button, Spacer } from "@chakra-ui/react"
 import recipeDB from "../apis/recipeDB";
 
 const UserProfile = (props) => {
+    const [bookmarks, setBookmarks] = useState([]);
+
     useEffect(() => {
         const bks = recipeDB.get("/recipes/getBookmarks", {
             params: {
@@ -21,10 +23,11 @@ const UserProfile = (props) => {
             }
         })
     }, [])
-    const [bookmarks, setBookmarks] = useState([])
+
     const handleClick = () => {
         props.handleProfileView()
     }
+    
     return (
         <>
             <Flex >
