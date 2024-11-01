@@ -26,4 +26,6 @@ router.route("/removeRecipeFromProfile").post(RecipesCtrl.apiRemoveRecipeFromPro
 
 router.route("/getRecipeByName").get(RecipesCtrl.apiGetRecipeByName);
 
+router.route("/generateRecipe").post(RecipesCtrl.apiGenerateRecipe);
+
 export default router;

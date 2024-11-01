@@ -1,10 +1,12 @@
-import React from "react";
-import {Box, HStack, Text, Input, InputGroup, InputRightElement, Button, VStack, Textarea, Badge, Alert, AlertIcon} from "@chakra-ui/react";
+import React, { useState } from 'react';
+import {useToast, Box, HStack, Text, Input, InputGroup, Button, VStack, Textarea, Badge, Alert, AlertIcon} from "@chakra-ui/react";
 import recipeDB from "../apis/recipeDB";
 
 const AddRecipe = () => {
-
-    const [recipe, setRecipe] = React.useState({
+    const toast = useToast();
+    const [recipeInstructions, setRecipeInstructions] = useState("");
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [recipe, setRecipe] = useState({
         recipeName: "",
         cookingTime: 0,
         dietType: "",
@@ -19,10 +21,12 @@ const AddRecipe = () => {
         locations: []
     });
 
-    const [ingredientCount, setIngredientCount] = React.useState(0);
+    // const [ingredientCount, setIngredientCount] = useState(0);
 
     const addIngredient = () => {
         const ingredient = document.getElementById("ingredients").value;
+        if (!ingredient.trim()) return;
+
         setRecipe(prevValue => {
             return {
                 ...prevValue,
@@ -55,7 +59,6 @@ const AddRecipe = () => {
         document.getElementById("location").value = "";
     }; 
 
-
     const handleChange = (event) => {
         setRecipe(prevValue => {
             return {
@@ -64,9 +67,76 @@ const AddRecipe = () => {
             }
         })
     }
+    
+    // new stuff
+        const handleGenerateRecipe = async () => {
+        if (!recipe.recipeName) {
+            toast({
+                title: "Error",
+                description: "Please enter a recipe name first",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            });
+            return;
+        }
+
+        setIsGenerating(true);
+        try {
+            const response = await recipeDB.post("/recipes/generateRecipe", {
+                recipeName: recipe.recipeName,
+                cookingTime: recipe.cookingTime,
+                dietType: recipe.dietType,
+                cuisine: recipe.cuisine,
+                ingredients: recipe.ingredients
+            });
+
+            if (response.data && response.data.instructions) {
+                setRecipe(prev => ({
+                    ...prev,
+                    instructions: response.data.instructions
+                }));
+
+                toast({
+                    title: "Success",
+                    description: "Recipe instructions generated successfully",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                });
+            }
+        } catch (error) {
+            console.error("Error generating recipe:", error);
+            toast({
+                title: "Error",
+                description: "Failed to generate recipe. Please try again.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            });
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+    // const handleChange = (e) => {
+    //     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // };
 
     const addRecipe = () => {
-        recipeDB.post("/recipes/addRecipe", recipe)
+        if (!recipe.recipeName || !recipe.instructions) {
+            toast({
+                title: "Error",
+                description:
+                    "Recipe name and instructions are required",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            });
+            return;
+        }
+        
+        recipeDB.post("/recipes/addRecipeq", recipe)
             .then(res => {
                 console.log(res.data);
                 // clear all fields
@@ -220,7 +290,12 @@ const AddRecipe = () => {
                             {locationPrintHandler()}
                         </InputGroup>  
                     </HStack> 
-                    <Textarea onChange = {handleChange} id="instructions" placeholder={"Write Cooking Instructions Here"} />
+
+
+                    <Button width="30%" m="auto" onClick={handleGenerateRecipe} _hover={{ bg: "black", color: "gray.100" }} color="gray.600" bg="green.300">Generate Recipe</Button>
+
+
+                    <Textarea value={recipe.instructions} onChange={handleChange}  id="instructions"  placeholder={"Write Cooking Instructions Here"} />                    
                     <Button width={"30%"} m={'auto'} id="addRecipeButton" onClick={addRecipe} _hover={{ bg: 'black', color: "gray.100" }} color={"gray.600"} bg={"green.300"}>Add Recipe</Button>
                 </VStack>
             </Box>
