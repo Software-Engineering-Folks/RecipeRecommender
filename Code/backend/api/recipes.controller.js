@@ -149,6 +149,7 @@ export default class RecipesController {
   }
 
   static async apiGetIngredients(req, res, next) {
+    console.log("Received request for ingredients");
     try {
       let ingredients = await RecipesDAO.getIngredients();
       res.json(ingredients);

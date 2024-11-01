@@ -34,11 +34,6 @@ class Form extends Component {
       console.log(err);
     }
   }
-  //  cuisine_list =   ['Mexican','South Indian','Chinese','Thai','Japanese','Gujarati','North Indian','Lebanese','Mediterranean',
-  // 'Middle East','Italian','Korean','Continental','Greek','Latin','American', "Other", "Swedish", "Latvian", "Italian",
-  // "Spanish", "American","Scottish","British","Thai","Japanese","Indian","Canadian","Russian","Jewish","Polish","German","French","Hawaiian",
-  // "Brazilian", "Peruvian","Cuban","Tibetian","Salvadorian","Egyptian","Greek","Belgian","Irish","Welsh","Mormon","Cajun","Portugese","Turkish","Haitian",
-  // "Tahitian","Kenyan","Korean","Algerian","Nigerian","Libyan"]
 
   // function to change cuisine state, triggered on selection of a cuisine item.
   /*cuisineUpdate = (event) => {

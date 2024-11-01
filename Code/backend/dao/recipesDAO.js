@@ -86,15 +86,14 @@ export default class RecipesDAO {
     }
 
     static async getBookmarkedRecipes(userName) {
-      try {
-          const user = await users.findOne({ userName }, { bookmarks: 1 });
-          return user ? user.bookmarks : [];
-      } catch (e) {
-          console.error(`Failed to fetch bookmarks for ${userName}:`, e);
-          return { error: e.message };
-      }
+        try {
+            const user = await users.findOne({ userName }, { bookmarks: 1 });
+            return user ? user.bookmarks : [];
+        } catch (e) {
+            console.error(`Failed to fetch bookmarks for ${userName}:`, e);
+            return { error: e.message };
+        }
     }
-
 
     //Function to get recipe by name
     static async getRecipeByName({ filters = null } = {}) {
@@ -286,7 +285,7 @@ export default class RecipesDAO {
         try {
             response = await users.updateOne(
                 { userName: userName },
-                { $pull: { bookmarks: { _id: recipe._id } } } 
+                { $pull: { bookmarks: { _id: recipe._id } } }
             );
             console.log(response);
             return response;
@@ -294,6 +293,44 @@ export default class RecipesDAO {
             console.log(`Unable to remove recipe, ${e}`);
         }
     }
+
+    // static async getIngredients() {
+    //     let response = {};
+    //     try {
+    //         response = await ingredients.distinct("item_name");
+    //         console.log("All Ingredients: \n", response)
+    //         return response;
+    //     } catch (e) {
+    //         console.error(`Unable to get ingredients, ${e}`);
+    //         return response;
+    //     }
+    // }
+
+    // static async getIngredients() {
+    //     let response = [];
+    //     try {
+    //         // Find all recipes in the collection
+    //         const recipes = await recipesCollection.find({}).toArray();
+
+    //         // Collect all ingredients from each recipe
+    //         const ingredientsSet = new Set();
+    //         recipes.forEach((recipe) => {
+    //             if (recipe.ingredients && Array.isArray(recipe.ingredients)) {
+    //                 recipe.ingredients.forEach((ingredient) => {
+    //                     ingredientsSet.add(ingredient); // Use a Set to avoid duplicates
+    //                 });
+    //             }
+    //         });
+
+    //         // Convert the Set back to an array
+    //         response = Array.from(ingredientsSet);
+    //         console.log("All Ingredients: \n", response);
+    //         return response;
+    //     } catch (e) {
+    //         console.error(`Unable to get all ingredients, ${e}`);
+    //         return response; // Return an empty array in case of an error
+    //     }
+    // }
 
     static async getIngredients() {
         let response = {};

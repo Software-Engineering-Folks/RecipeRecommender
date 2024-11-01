@@ -10,7 +10,7 @@ router.route("/cuisines").get(RecipesCtrl.apiGetRecipeCuisines);
 
 router.route("/addRecipe").post(RecipesCtrl.apiPostRecipe);
 
-router.route('/callIngredients').get(RecipesCtrl.apiGetIngredients);
+router.route("/callIngredients").get(RecipesCtrl.apiGetIngredients);
 
 router.route("/signup").post(RecipesCtrl.apiAuthSignup);
 
