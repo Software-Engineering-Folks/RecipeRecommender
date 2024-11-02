@@ -188,10 +188,9 @@ Please see our [CONTRIBUTING.md](https://github.com/pnprathima/Recipe_Recommende
 
 ## Team Members
 
-Annadurai,Harshitha <br>
-Bhoja Ramamanohara,Pannaga Rao <br>
-Masineni Prasanna Kumar,Karthik <br>
-Niranjana,Prathima Putreddy <br>
+Saraogi, Devang <br>
+Behar, Snehil <br>
+Tandel, Om <br>
 
 ## Troubleshooting and Support
 Common issues observed and solutions:<br>
