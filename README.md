@@ -2,17 +2,13 @@
 
 ![](Reciperec.gif)
 
-## Deployed Link: https://reciperecommendationsystem.vercel.app/
-
 <br><br>
 ## Watch how our application works: 
-### Click here to watch - [Youtube Video](https://youtu.be/133EWUQWe5Q) <br>
+### Click here to watch - [Drive](https://go.ncsu.edu/uimnr6a) <br>
 <br><br>
 
-
-
 [![Made With](https://img.shields.io/badge/made%20with-javascript-gree)](https://www.javascript.com/)
-[![DOI](https://zenodo.org/badge/706798373.svg)](https://zenodo.org/doi/10.5281/zenodo.10023534)
+[![DOI](https://zenodo.org/badge/881480050.svg)](https://doi.org/10.5281/zenodo.14027615)
 [![GitHub issues open](https://img.shields.io/github/issues/pnprathima/Recipe_Recommender)](https://github.com/pnprathima/Recipe_Recommender/issues)
 [![GitHub stars](https://badgen.net/github/stars/pnprathima/Recipe_Recommender)](https://badgen.net/github/stars/pnprathima/Recipe_Recommender)
 ![Github closes issues](https://img.shields.io/github/issues-closed-raw/pnprathima/Recipe_Recommender)
@@ -184,10 +180,9 @@ Chatbot integration- to answer quick queries about the recipe.
 
 ## Team Members
 
-Annadurai,Harshitha <br>
-Bhoja Ramamanohara,Pannaga Rao <br>
-Masineni Prasanna Kumar,Karthik <br>
-Niranjana,Prathima Putreddy <br>
+Saraogi, Devang <br>
+Tandel, Om <br>
+Behar, Snehil <br>
 
 ## Troubleshooting and Support
 Common issues observed and solutions:<br>
