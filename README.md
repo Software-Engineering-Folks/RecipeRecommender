@@ -1,6 +1,6 @@
 # Enhanced Recipe Recommender: Introducing additional features and addressing issues for an improved user experience.
 
-![](Reciperec.gif)
+![](Recipe_1.gif)
 
 ## Deployed Link: https://reciperecommendationsystem.vercel.app/
 
@@ -33,40 +33,49 @@
    
 <h2> What is Recipe Recommender? </h2>
 
-Meet Recipe Recommender, your ultimate kitchen companion! Say goodbye to the dilemma of deciding what to cook with the ingredients on hand. We've revolutionized the cooking experience with an application that effortlessly suggests delicious recipes based on your kitchen inventory.  <br>
+Introducing Recipe Recommender—the smart solution to your cooking dilemmas! Our latest version is packed with new features designed to make your kitchen experience smoother, more interactive, and more personalized than ever.
 
-Unlock the full potential of your pantry and fridge as our innovative software guides you in selecting perfect dishes tailored to your current ingredients. Cooking is now an exciting adventure rather than a daunting task. Immerse yourself in a realm of limitless culinary possibilities with Recipe Recommender.  <br>
+With SSO Sign-In, logging in has never been easier or more secure—now you can access your account via social media or email with just a click. Our AI-Powered Recipe Suggestions take personalization to a new level, recommending dishes that fit your tastes and ingredients seamlessly. To make exploring recipes even more intuitive, we’ve introduced an Interactive Chatbot that offers three tailored options to help you find exactly what you’re craving. And, with an Enhanced UI and Bug Fixes, browsing and saving recipes is smoother than ever.
 
-We've added <b> numerous entertaining new features and fixes to enhance user-friendliness.</b> <br>
-1. Craving enchiladas but unsure how to cook Mexican food? Now, you can search for recipes by names! Just type in "enchiladas," choose a recipe based on its features, and enjoy. <br>
-
-2. Imagine finding interesting recipes during your commute. With another new feature, you can save them on the go. We've also introduced dedicated user profiles. Sign up, log in, and save your favorite recipes under your profile in the "bookmarks" section. When you're ready to cook, everything will be waiting for you.  <br>
-
-3. That's not all! We've removed non-functional buttons, technically known as "refactoring the system."  <br>
-4. Your profile, information, and favorite recipes now have a dedicated space. Secure logins and logouts ensure no duplicate entries or exposed credentials, making the system more secure.
+From personalized recommendations to a sleek, user-friendly design, Recipe Recommender is here to inspire your next delicious creation!
 
 
 <br> <b> More about our new additions in our next section!</b>
 
 ## Feature additions: Enhancements, Upgrades and BugFixes:
 Presenting our latest additions: Here's a comprehensive list of all our new features, enhancements, and upgrades! <br>
-1. User Profile: In our application, users can now establish a profile with a unique username and password, allowing seamless login and logout. This facilitates personalized experiences and customized access to preferences and activities. Further details will be discussed in the following points. Your profile, information, and preferred recipes now inhabit a designated area, simplifying the management of all your belongings in one organized space.
-2. Bookmarks: Picture this scenario: You're commuting, scrolling through intriguing recipes in our app. Thanks to a cutting-edge feature, you can now save them instantly. The introduction of dedicated user profiles elevates your experience. Simply sign up, log in, and curate your favorite recipes in the "bookmarks" section under your profile. When the time comes to cook, everything awaits you – seamlessly organized and easily accessible.
-3. Search for recipes by name: Previously limited to ingredient-based searches only, our system now boasts an exciting upgrade. You can now search for recipes by name! Ever craved enchiladas without knowing the recipe? Simply input "enchiladas," peruse based on features, and relish the culinary journey.
-4. Refactoring the UI: We've eliminated inactive buttons and links, employing a technical process termed "system refactoring" to enhance functionality and optimize the user interface.
-5. System security upgrade: We observed some passwords present in the codebase, which is a major security threat. We have ensured to removed this and move it to the DB. Additionally, we have implemented secure logins and logouts ensuring the prevention of duplicate entries and safeguards credentials, fortifying the overall security of the system.
-6. The requirements.txt file has been updated to ensure forward compatibility by specifying package versions greater than or equal to the ones explicitly mentioned. This modification allows for the installation of packages with versions that meet or exceed the specified ones, thus accommodating future updates and maintaining compatibility with evolving dependencies.
+1. User Profile: Our application now features Single Sign-On (SSO) authentication, allowing you to log in seamlessly through your social media accounts or by creating a new account within our system. This streamlined authentication process not only enhances security but also provides personalized experiences and customized access to your preferences and activities. Further details will be discussed in the following points. Your profile, information, and preferred recipes are now conveniently located in a designated area, simplifying the management of all your content in one organized space.
+2. Refactoring the UI: We've eliminated inactive buttons and links, employing a technical process termed "system refactoring" to enhance functionality and optimize the user interface.
+3. Chatbot: We've introduced a Chatbot feature to enhance user engagement and make recipe discovery even more accessible. The chatbot serves as a virtual assistant, guiding you through various functionalities of our application directly from your messaging platform  
+
+### Interaction Flows for Chatbot
+
+1. **Search Recipe by Name**
+
+   - **Prompt**: After `/start`, select the option to name a recipe.
+   - **Outcome**: Receive step-by-step instructions if the recipe is available.
+
+2. **Find Recipes by Ingredients**
+
+   - **Prompt**: Provide the ingredients you have.
+   - **Outcome**: Get suggestions for recipes you can make.
+
+3. **Access the Website**
+
+   - **Prompt**: Choose to open the website.
+   - **Outcome**: Receive a link to our website.
+
 
 ## Documentation and Project Flow:
 ![](flow-rr.gif) <br><br>
-1. User Registration: Establish a unique username and password; no duplicate usernames allowed, ensuring password confidentiality.
-2. User Authentication: Log in using the correct username and password for secure access.
+![](Chat_bot.gif) <br><br>
+1. User Registration and Authentication: A Universal sign in page, where you can create an account or sign up through any of you social media accounts
 3. Search Recipes by Ingredients: Input your available ingredients to discover relevant recipes based on ingredient names.
 4. Search Recipes by Dish Name: Locate recipes by specifying the dish name in the search.
 5. Add a Recipe: Share details such as ingredients, dish name, time, cuisine, instructions, and optional images to contribute your recipe.
 6. Bookmark Favorite Recipes: Save preferred recipes for easy access.
 7. View Bookmarked Recipes in User Profile: Access and review all saved recipes conveniently stored under your user profile.
-8. Logout: Securely log out to protect your profile information and activities. <br><br>
+8. Logout: Securely Logout will again take you to our landing page, where you will be required to log in <br><br>
 
 
 
@@ -87,16 +96,17 @@ Allows users to add a new recipe via the /addRecipe endpoint, responding with a 
 Retrieves a list of distinct ingredients through the /callIngredients endpoint. Success returns a code of 200 with an array of ingredient strings; error returns code 500 with an error message.
 
 **User Signup:**
-Enables user registration at the /signup endpoint. Success returns a code of 200 with a success indicator; error returns code 500 with an error message.
-
-**User Login:**
-Authenticates a user via the /login endpoint, returning a code of 200 with a success indicator and user object on success. In case of an error, it returns a code of 500 with an error message.
+Our application utilizes Auth0's APIs to provide Single Sign-On (SSO) authentication, allowing users to sign in through social media accounts or create a new account within our system. This integration supports various identity protocols, including OpenID Connect, OAuth, and SAML.
 
 **Get Bookmarks:**
 Retrieves bookmarked recipes for a user through the /getBookmarks endpoint. Success returns a code of 200 with an array of bookmarked recipes; error returns code 500 with an error message.
 
 **Add Recipe to User Profile:**
 Adds a recipe to a user's profile bookmarks via the /addRecipeToProfile endpoint. Success returns a code of 200 with the count of modified items; error returns code 500 with an error message.
+
+**OPEN AI API**
+Suggests you recipe, powered by artifical intelligence.
+
 
 <br>Detailed documentation can be found at: [API Docs](https://github.com/pnprathima/Recipe_Recommender/blob/master/API_Documentation.pdf)
 
@@ -115,14 +125,14 @@ Adds a recipe to a user's profile bookmarks via the /addRecipeToProfile endpoint
 
 ## Key Software Requirements
 
-- [Node.js v18.17.1](https://nodejs.org/en/download/)
-- [NPM v10.1.0](https://nodejs.org/en/download/)
+- [Node.js v20.17.0](https://nodejs.org/en/download/)
+- [NPM v10.8.2](https://nodejs.org/en/download/)
 
 ## Project Setup Steps:
 
 ### Installation:
 Check out our comprehensive YouTube video demonstrating each step for easy guidance. [Project Setup](https://youtu.be/uKh-afpUdh0)
-- clone repository using `git clone https://github.com/pnprathima/Recipe_Recommender.git`
+- clone repository using `https://github.com/Software-Engineering-Folks/RecipeRecommender.git`
 - setup for frontend
   open terminal and navigate to the **frontend** folder and execute the following:
   ```
@@ -150,10 +160,9 @@ Check out our comprehensive YouTube video demonstrating each step for easy guida
 
 
 ## Release Made in this cycle <br>
-1. Major release 3.1 - Major release to add search by recipe, user registration, user login and bookmarks.
-2. Hotfix Release 3.1.2 - Minor version release to add test case for login
-3. Major Release 3.2 - Major release- Included test cases addition, user registration, minor bug fixes and documentation updates<br>
-[Read our detailed release notes](https://github.com/pnprathima/Recipe_Recommender/releases) <br>
+1. Major release 4.1 - Added SSO sign-in
+2. Major Release 4.2 - Chatbot Integration
+3. Major Release 4.3 - Major release- Included minor bug fixes and documentation updates<br>
 <br>
 
 
@@ -174,13 +183,10 @@ Please see our [CONTRIBUTING.md](https://github.com/pnprathima/Recipe_Recommende
 
 ## FUTURE SCOPE
 
-Implement personalized diertary requirements based filtering.
-
-Meal planning- saving data for all meals of the day.
-
-Voice to text integration. 
-
-Chatbot integration- to answer quick queries about the recipe.
+1. Nutritional Info: Show calorie counts and nutrition facts for each recipe.
+2. Recipe Recommendations: Suggest similar recipes with a smart recommendation model.
+3. Ingredient Price Comparison: Link ingredients to compare prices across multiple websites.
+4. Smart Meal Planner: Automatically generate weekly meal plans and grocery lists based on user preferences and available ingredients.
 
 ## Team Members
 
@@ -188,12 +194,12 @@ Annadurai,Harshitha <br>
 Bhoja Ramamanohara,Pannaga Rao <br>
 Masineni Prasanna Kumar,Karthik <br>
 Niranjana,Prathima Putreddy <br>
+Om Tandel, Snehil Behar, Devang Sarogi <br>
 
 ## Troubleshooting and Support
 Common issues observed and solutions:<br>
-1. requirements.txt failing: this issue should no longer be seen, as we have used ~= to ensure your systems pick up versions compatible with the other packages. However, if you happen to see the issue, modify the requirements.txt file to use a more recent version.
-2. python was not found: we recommend using python3 as some of the modules are available only on Python3. You may either install Python3 or setup a virtual environment(we suggest the latter if you are currently running other applications on python2)
-Facing other issues with the application? Mail us - [teamsoftwareeng7@gmail.com](teamsoftwareeng7@gmail.com)
+1. Sometimes there would be vulnerabilities found in the backend, so fix it by running 'npm install nodemon --save-dev', because npm audit fix --force won't fix it.
+Facing other issues with the application? Mail us - [software.72.engineering@gmail.com](software.72.engineering@gmail.com)
 
 
 
