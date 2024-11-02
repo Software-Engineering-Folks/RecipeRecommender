@@ -4,7 +4,6 @@ import recipeDB from "../apis/recipeDB";
 
 const AddRecipe = () => {
     const toast = useToast();
-    const [recipeInstructions, setRecipeInstructions] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
     const [recipe, setRecipe] = useState({
         recipeName: "",
@@ -20,8 +19,6 @@ const AddRecipe = () => {
         restaurants: [],
         locations: []
     });
-
-    // const [ingredientCount, setIngredientCount] = useState(0);
 
     const addIngredient = () => {
         const ingredient = document.getElementById("ingredients").value;
@@ -68,8 +65,7 @@ const AddRecipe = () => {
         })
     }
     
-    // new stuff
-        const handleGenerateRecipe = async () => {
+    const handleGenerateRecipe = async () => {
         if (!recipe.recipeName) {
             toast({
                 title: "Error",
@@ -119,10 +115,6 @@ const AddRecipe = () => {
         }
     };
 
-    // const handleChange = (e) => {
-    //     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // };
-
     const addRecipe = () => {
         if (!recipe.recipeName || !recipe.instructions) {
             toast({
@@ -139,7 +131,6 @@ const AddRecipe = () => {
         recipeDB.post("/recipes/addRecipeq", recipe)
             .then(res => {
                 console.log(res.data);
-                // clear all fields
                 setRecipe({
                     recipeName: "",
                     cookingTime: 0,
@@ -290,11 +281,7 @@ const AddRecipe = () => {
                             {locationPrintHandler()}
                         </InputGroup>  
                     </HStack> 
-
-
-                    <Button width="30%" m="auto" onClick={handleGenerateRecipe} _hover={{ bg: "black", color: "gray.100" }} color="gray.600" bg="green.300">Generate Recipe</Button>
-
-
+                    <Button width="30%" m="auto" onClick={handleGenerateRecipe} _hover={{ bg: "black", color: "gray.100" }} color="gray.600" bg="green.300" isDisabled={isGenerating}>Generate Recipe</Button>
                     <Textarea value={recipe.instructions} onChange={handleChange}  id="instructions"  placeholder={"Write Cooking Instructions Here"} />                    
                     <Button width={"30%"} m={'auto'} id="addRecipeButton" onClick={addRecipe} _hover={{ bg: 'black', color: "gray.100" }} color={"gray.600"} bg={"green.300"}>Add Recipe</Button>
                 </VStack>

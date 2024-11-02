@@ -131,6 +131,7 @@ export default class RecipesController {
         };
         res.json(response);
     }
+    
     //Function to get the cuisines
     static async apiGetRecipeCuisines(req, res, next) {
         try {
@@ -161,66 +162,64 @@ export default class RecipesController {
             res.status(500).json({ error: e });
         }
     }
-static async apiGenerateRecipe(req, res) {
-    const { recipeName, cookingTime, dietType, cuisine, ingredients } = req.body;
+    
+    static async apiGenerateRecipe(req, res) {
+        const { recipeName, cookingTime, dietType, cuisine, ingredients } = req.body;
 
-    if (!recipeName) {
-        return res.status(400).json({ message: "Recipe name is required" });
-    }
-
-    try {
-        let prompt = `Generate detailed cooking instructions for ${recipeName}.`;
-        
-        if (cuisine) {
-            prompt += ` This should be a ${cuisine} style recipe.`;
-        }
-        
-        if (dietType) {
-            prompt += ` The recipe should be suitable for ${dietType} diet.`;
-        }
-        
-        if (ingredients && ingredients.length > 0) {
-            prompt += ` Use these ingredients: ${ingredients.join(", ")}.`;
-        }
-        
-        if (cookingTime) {
-            prompt += ` The cooking time should be approximately ${cookingTime} minutes.`;
+        if (!recipeName) {
+            return res.status(400).json({ message: "Recipe name is required" });
         }
 
-        prompt += ` Please provide step-by-step cooking instructions.`;
-        console.log("prompt: ", prompt);
-
-        const openaiResponse = await axios.post(
-            "https://api.openai.com/v1/chat/completions",  
-            {
-                model: "gpt-3.5-turbo",  
-                messages: [{
-                    role: "user",
-                    content: prompt
-                }],
-                temperature: 0.7,
-                max_tokens: 500
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-                    "Content-Type": "application/json",
-                },
+        try {   
+            let prompt = `Generate detailed cooking instructions for ${recipeName}.`;
+            
+            if (cuisine) {
+                prompt += ` This should be a ${cuisine} style recipe.`;
             }
-        );
+            
+            if (dietType) {
+                prompt += ` The recipe should be suitable for ${dietType} diet.`;
+            }
+            
+            if (ingredients && ingredients.length > 0) {
+                prompt += ` Use these ingredients: ${ingredients.join(", ")}.`;
+            }
+            
+            if (cookingTime) {
+                prompt += ` The cooking time should be approximately ${cookingTime} minutes.`;
+            }
 
-        const instructions = openaiResponse.data.choices[0].message.content.trim();
-        console.log("instructions: " ,instructions)
-        res.json({ instructions });
-    } catch (error) {
-        console.error("Error generating recipe:", error.response?.data || error.message);
-        res.status(500).json({ 
-            message: "Failed to generate recipe",
-            error: error.response?.data || error.message 
-        });
+            prompt += ` Please provide step-by-step cooking instructions.`;
+            console.log("Prompt: ", prompt);
+
+            const openaiResponse = await axios.post(
+                "https://api.openai.com/v1/chat/completions",  
+                {
+                    model: "gpt-3.5-turbo",  
+                    messages: [{
+                        role: "user",
+                        content: prompt
+                    }],
+                    temperature: 0.7,
+                    max_tokens: 500
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            const instructions = openaiResponse.data.choices[0].message.content.trim();
+            console.log("Instructions: " ,instructions)
+            res.json({ instructions });
+        } catch (error) {
+            console.error("Error generating recipe:", error.response?.data || error.message);
+            res.status(500).json({ 
+                message: "Failed to generate recipe",
+                error: error.response?.data || error.message 
+            });
+        }
     }
 }
-
-}
-
-

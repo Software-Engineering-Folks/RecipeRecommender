@@ -1,8 +1,8 @@
 import express from "express";
 import RecipesCtrl from "./recipes.controller.js";
-import RecipesDAO from "../dao/recipesDAO.js";
 
 const router = express.Router();
+
 //URl to get the recipes
 router.route("/").get(RecipesCtrl.apiGetRecipes);
 
@@ -27,5 +27,6 @@ router.route("/removeRecipeFromProfile").post(RecipesCtrl.apiRemoveRecipeFromPro
 router.route("/getRecipeByName").get(RecipesCtrl.apiGetRecipeByName);
 
 router.route("/generateRecipe").post(RecipesCtrl.apiGenerateRecipe);
+
 
 export default router;
