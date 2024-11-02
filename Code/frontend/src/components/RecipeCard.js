@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Box, Card, CardHeader, Heading, Text, CardBody, Image, useToast, Flex, Badge, IconButton, Skeleton, Stack} from "@chakra-ui/react";
+import { Box, Card, CardHeader, Heading, Text, CardBody, Image, useToast, Flex, Badge, IconButton, Skeleton, Stack } from "@chakra-ui/react";
 import { ClockIcon, StarIcon, BookmarkIcon } from "lucide-react";
 import recipeDB from "../apis/recipeDB";
+import { useAuth0 } from "@auth0/auth0-react"; // Import Auth0 hook
 
 const RecipeCard = ({ recipe, handler }) => {
+    const { isAuthenticated, loginWithRedirect, user } = useAuth0(); // Access Auth0 properties
     const [isLoading, setIsLoading] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const [imageError, setImageError] = useState(false);
@@ -11,15 +13,12 @@ const RecipeCard = ({ recipe, handler }) => {
 
     useEffect(() => {
         const fetchBookmarkedRecipes = async () => {
-            const userName = localStorage.getItem("userName");
-            if (!userName) return;
+            if (!isAuthenticated || !user) return; // Only fetch if user is authenticated
 
             try {
-                const { data } = await recipeDB.get(`/recipes/getBookmarkedRecipes`,
-                    {
-                        params: { userName },
-                    }
-                );
+                const { data } = await recipeDB.get(`/recipes/getBookmarkedRecipes`, {
+                    params: { userName: user.sub }, // Use Auth0 user ID as identifier
+                });
 
                 const isRecipeBookmarked = data.some(
                     (bookmarkedRecipe) => bookmarkedRecipe._id === recipe._id
@@ -32,7 +31,7 @@ const RecipeCard = ({ recipe, handler }) => {
         };
 
         fetchBookmarkedRecipes();
-    }, [recipe._id]);
+    }, [recipe._id, isAuthenticated, user]);
 
     const handleClick = () => {
         if (handler) {
@@ -41,10 +40,8 @@ const RecipeCard = ({ recipe, handler }) => {
     };
 
     const handleSave = async () => {
-        setIsLoading(true);
-        const userName = localStorage.getItem("userName");
-
-        if (!userName) {
+        if (!isAuthenticated) {
+            // Prompt login if user is not authenticated
             toast({
                 title: "Please log in",
                 description: "You need to be logged in to save recipes",
@@ -52,15 +49,17 @@ const RecipeCard = ({ recipe, handler }) => {
                 duration: 3000,
                 isClosable: true,
             });
-            setIsLoading(false);
+            loginWithRedirect(); // Redirect to Auth0 login
             return;
         }
 
+        setIsLoading(true);
+
         try {
             if (!isSaved) {
-                console.log("recipe:", recipe)
+                // Save the recipe
                 await recipeDB.post("/recipes/addRecipeToProfile", {
-                    userName,
+                    userName: user.sub, // Use Auth0 user ID as identifier
                     recipe,
                 });
 
@@ -72,11 +71,10 @@ const RecipeCard = ({ recipe, handler }) => {
                     duration: 3000,
                     isClosable: true,
                 });
-            }
-
-            else {
+            } else {
+                // Remove the recipe from bookmarks
                 await recipeDB.post("/recipes/removeRecipeFromProfile", {
-                    userName,
+                    userName: user.sub, // Use Auth0 user ID as identifier
                     recipe,
                 });
                 setIsSaved(false);
@@ -88,9 +86,8 @@ const RecipeCard = ({ recipe, handler }) => {
                     isClosable: true,
                 });
             }
-
         } catch (error) {
-            console.error(`Error saving recipe for user ${userName}:`, error);
+            console.error(`Error saving recipe for user ${user.sub}:`, error);
             toast({
                 title: "Error saving recipe",
                 description: "Please try again later",
