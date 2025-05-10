@@ -4,27 +4,21 @@ import RecipeCard from "./RecipeCard";
 
 // component to handle all the recipes
 const RecipeList = ({ recipes }) => {
-  // mapping each recipe item to the Recipe container
-  // const renderedRecipes = recipes.map((recipe) => {
-  //   // return <Recipe key={recipe._id} recipe={recipe} />;
-  //   return(
-
-  //   )
-  // });
-  console.log(recipes)
   const [isOpen, setIsOpen] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState({});
-  var youtube_videos =
-    "https://www.youtube.com/results?search_query=" +
-    currentRecipe["TranslatedRecipeName"];
+
+  var youtube_videos = "https://www.youtube.com/results?search_query=" +currentRecipe["TranslatedRecipeName"];
+
   const handleViewRecipe = (data) => {
-    setIsOpen(true)
-    console.log(data)
-    setCurrentRecipe(data);
-  }
+      setIsOpen(true);
+      console.log(data);
+      setCurrentRecipe(data);
+  };
+
   const onClose = () => {
-    setIsOpen(false)
-  }
+      setIsOpen(false);
+  };
+
   // all the recipes are being returned in the form of a table
   return (
     <>

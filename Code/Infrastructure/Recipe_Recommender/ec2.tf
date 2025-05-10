@@ -86,7 +86,7 @@ mkdir project
 cd project
 git clone https://github.com/het-patel99/Recipe_Recommender.git
 cd Recipe_Recommender/Code/frontend
-sudo sed -i 's/##serverIp##/${aws_instance.backend-webserver.public_ip}:5000/g' /project/Recipe_Recommender/Code/frontend/src/apis/recipeDB.js
+sudo sed -i 's/##serverIp##/${aws_instance.backend-webserver.public_ip}:1000/g' /project/Recipe_Recommender/Code/frontend/src/apis/recipeDB.js
 npm install
 npm start
 EOF

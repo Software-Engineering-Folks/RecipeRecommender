@@ -6,13 +6,11 @@
 
 <br><br>
 ## Watch how our application works: 
-### Click here to watch - [Youtube Video](https://youtu.be/133EWUQWe5Q) <br>
+### Click here to watch - [Drive](https://go.ncsu.edu/uimnr6a) <br>
 <br><br>
 
-
-
 [![Made With](https://img.shields.io/badge/made%20with-javascript-gree)](https://www.javascript.com/)
-[![DOI](https://zenodo.org/badge/706798373.svg)](https://zenodo.org/doi/10.5281/zenodo.10023534)
+[![DOI](https://zenodo.org/badge/881480050.svg)](https://doi.org/10.5281/zenodo.14027615)
 [![GitHub issues open](https://img.shields.io/github/issues/pnprathima/Recipe_Recommender)](https://github.com/pnprathima/Recipe_Recommender/issues)
 [![GitHub stars](https://badgen.net/github/stars/pnprathima/Recipe_Recommender)](https://badgen.net/github/stars/pnprathima/Recipe_Recommender)
 ![Github closes issues](https://img.shields.io/github/issues-closed-raw/pnprathima/Recipe_Recommender)
@@ -45,9 +43,8 @@ From personalized recommendations to a sleek, user-friendly design, Recipe Recom
 ## Feature additions: Enhancements, Upgrades and BugFixes:
 Presenting our latest additions: Here's a comprehensive list of all our new features, enhancements, and upgrades! <br>
 1. User Profile: Our application now features Single Sign-On (SSO) authentication, allowing you to log in seamlessly through your social media accounts or by creating a new account within our system. This streamlined authentication process not only enhances security but also provides personalized experiences and customized access to your preferences and activities. Further details will be discussed in the following points. Your profile, information, and preferred recipes are now conveniently located in a designated area, simplifying the management of all your content in one organized space.
-2. UI Refactoring: We’ve resolved multiple UI bugs, including issues with bookmark functionality and recipe cardholders, by removing inactive buttons and links. This thorough “system refactoring” has improved functionality and optimized the overall user experience.
-3. Chatbot: We've introduced a Chatbot feature to enhance user engagement and make recipe discovery even more accessible. The chatbot serves as a virtual assistant, guiding you through various functionalities of our application directly from your messaging platform
-4. We’ve integrated OpenAI to enhance our recipe recommendations, using artificial intelligence to provide smarter, more personalized suggestions tailored to your preferences.
+2. Refactoring the UI: We've eliminated inactive buttons and links, employing a technical process termed "system refactoring" to enhance functionality and optimize the user interface.
+3. Chatbot: We've introduced a Chatbot feature to enhance user engagement and make recipe discovery even more accessible. The chatbot serves as a virtual assistant, guiding you through various functionalities of our application directly from your messaging platform  
 
 ### Interaction Flows for Chatbot
 
@@ -191,16 +188,14 @@ Please see our [CONTRIBUTING.md](https://github.com/pnprathima/Recipe_Recommende
 
 ## Team Members
 
-Annadurai,Harshitha <br>
-Bhoja Ramamanohara,Pannaga Rao <br>
-Masineni Prasanna Kumar,Karthik <br>
-Niranjana,Prathima Putreddy <br>
-Om Tandel, Snehil Behar, Devang Sarogi <br>
+Saraogi, Devang <br>
+Behar, Snehil <br>
+Tandel, Om <br>
 
 ## Troubleshooting and Support
 Common issues observed and solutions:<br>
-1. Occasionally, vulnerabilities may be detected in the backend. To address these, run npm install nodemon --save-dev, as npm audit fix --force may not resolve the issue.
-2. The Auth0 login may occasionally experience callback errors if specific URLs aren’t specified on the application page. If you encounter this issue, ensure you add the hosting address to the allowed callback URLs.
+1. Sometimes there would be vulnerabilities found in the backend, so fix it by running 'npm install nodemon --save-dev', because npm audit fix --force won't fix it.
+2. The Auth0 login may occasionally experience callback errors if specific URLs aren’t specified on the application page. If you encounter this issue, ensure you add the hosting address to the allowed callback URLs </br>
 Facing other issues with the application? Mail us - [software.72.engineering@gmail.com](software.72.engineering@gmail.com)
 
 
